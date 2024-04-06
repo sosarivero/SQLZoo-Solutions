@@ -1,6 +1,8 @@
 # SQL Zoo Solutions
 SQL Zoo is a comprehensive SQL tutorial covering fundamental concepts and advanced queries, offering interactive exercises and examples to reinforce learning. It provides a structured approach to mastering SQL commands, enabling users to develop proficiency in database querying and manipulation.
 
+SQL Zoo is available at https://sqlzoo.net/wiki/SQL_Tutorial.
+
 Here are the solution queries I wrote for every section of the tutorial.
 
 - [SQL Zoo Solutions](#sql-zoo-solutions)

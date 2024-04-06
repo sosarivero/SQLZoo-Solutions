@@ -3,7 +3,22 @@ SQL Zoo is a comprehensive SQL tutorial covering fundamental concepts and advanc
 
 Here are the solution queries I wrote for every section of the tutorial.
 
+- [SQL Zoo Solutions](#sql-zoo-solutions)
+  - [SELECT basics](#select-basics)
+  - [SELECT names](#select-names)
+  - [SELECT from world](#select-from-world)
+  - [SELECT from nobel](#select-from-nobel)
+  - [SELECT in SELECT](#select-in-select)
+  - [SUM and COUNT](#sum-and-count)
+  - [JOIN](#join)
+  - [More JOIN](#more-join)
+  - [Using NULL](#using-null)
+  - [Self JOIN](#self-join)
+
+
 ## SELECT basics
+[Back to the top](#sql-zoo-solutions)
+
 1.  ```sql
     SELECT population FROM world
     WHERE name = 'Germany';
@@ -20,6 +35,8 @@ Here are the solution queries I wrote for every section of the tutorial.
     ```
 
 ## SELECT names
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT name FROM world
@@ -101,6 +118,8 @@ Here are the solution queries I wrote for every section of the tutorial.
     ```
 
 ## SELECT from world
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT name, continent, population FROM world;
@@ -178,6 +197,8 @@ Here are the solution queries I wrote for every section of the tutorial.
     AND name NOT LIKE "% %";
     ```
 ## SELECT from nobel
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT yr, subject, winner
@@ -257,7 +278,9 @@ Here are the solution queries I wrote for every section of the tutorial.
     WHERE yr = 1984
     ORDER BY subject IN ('chemistry', 'physics'), subject, winner;
     ```
-## SELECT within SELECT
+## SELECT in SELECT
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     select NAME from world
@@ -352,6 +375,8 @@ Here are the solution queries I wrote for every section of the tutorial.
     );
     ```
 ## SUM and COUNT
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT SUM(population)
@@ -396,7 +421,9 @@ Here are the solution queries I wrote for every section of the tutorial.
     GROUP BY continent
     HAVING SUM(population) >= 100000000;
     ```
-## Section name
+## JOIN
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT matchid, player FROM goal
@@ -495,6 +522,8 @@ Here are the solution queries I wrote for every section of the tutorial.
     ORDER BY mdate, matchid, team1, team2;
     ```
 ## More JOIN
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT movie.id, movie.title
@@ -614,6 +643,8 @@ Here are the solution queries I wrote for every section of the tutorial.
     );
     ```
 ## Using NULL
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT name FROM teacher
@@ -678,6 +709,8 @@ Here are the solution queries I wrote for every section of the tutorial.
     FROM teacher;
     ```
 ## Self JOIN
+[Back to the top](#sql-zoo-solutions)
+
 1. 
     ```sql
     SELECT COUNT(id) FROM stops;

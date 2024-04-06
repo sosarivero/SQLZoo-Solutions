@@ -494,3 +494,122 @@ Here are the solution queries I wrote for every section of the tutorial.
     GROUP BY matchid, mdate
     ORDER BY mdate, matchid, team1, team2;
     ```
+## More JOIN
+1. 
+    ```sql
+    SELECT movie.id, movie.title
+    FROM movie
+    WHERE movie.yr = 1962;
+    ```
+2. 
+    ```sql
+    SELECT yr FROM movie
+    WHERE title = 'Citizen Kane';
+    ```
+3. 
+    ```sql
+    SELECT id, title, yr FROM movie
+    WHERE title LIKE 'Star Trek%'
+    ORDER BY yr;
+    ```
+4. 
+    ```sql
+    SELECT id FROM actor
+    WHERE name = 'Glenn Close';
+    ```
+5. 
+    ```sql
+    SELECT id FROM movie
+    WHERE title = 'Casablanca';
+    ```
+6. 
+    ```sql
+    SELECT actor.name
+    FROM actor
+    JOIN casting ON actor.id = casting.actorid
+    JOIN movie ON casting.movieid = movie.id
+    WHERE movie.title = 'Casablanca';
+    ```
+7. 
+    ```sql
+    SELECT actor.name
+    FROM actor
+    JOIN casting ON actor.id = casting.actorid
+    JOIN movie ON casting.movieid = movie.id
+    WHERE movie.title = 'Alien';
+    ```
+8. 
+    ```sql
+    SELECT title FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    JOIN actor ON casting.actorid = actor.id
+    WHERE actor.name = 'Harrison Ford';
+    ```
+9. 
+    ```sql
+    SELECT title FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    JOIN actor ON casting.actorid = actor.id
+    WHERE actor.name = 'Harrison Ford'
+    AND casting.ord != 1;
+    ```
+10. 
+    ```sql
+    SELECT title, name FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    JOIN actor ON casting.actorid = actor.id
+    WHERE ord=1 AND yr=1962;
+    ```
+11. 
+    ```sql
+    SELECT yr, COUNT(*)
+    FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    JOIN actor ON casting.actorid = actor.id
+    WHERE name = 'Rock Hudson'
+    GROUP BY yr
+    HAVING COUNT(*) > 2;
+    ```
+12. 
+    ```sql
+    SELECT title, name FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    JOIN actor ON casting.actorid = actor.id
+    WHERE movieid IN (
+        SELECT movie.id FROM movie
+        JOIN casting ON movie.id = casting.movieid
+        JOIN actor ON casting.actorid = actor.id
+        WHERE name = 'Julie Andrews'
+    ) AND ord=1;
+    ```
+13. 
+    ```sql
+    SELECT name FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    JOIN actor ON casting.actorid = actor.id
+    WHERE ord=1
+    GROUP BY name
+    HAVING COUNT(*) >= 15;
+    ```
+14. 
+    ```sql
+    SELECT title, COUNT(actorid)
+    FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    WHERE yr = 1978
+    GROUP BY movieid
+    ORDER BY COUNT(actorid) DESC, title;
+    ```
+15. 
+    ```sql
+    SELECT name FROM movie
+    JOIN casting ON movie.id = casting.movieid
+    JOIN actor ON casting.actorid = actor.id
+    WHERE name != 'Art Garfunkel'
+    AND movieid IN (
+        SELECT movieid FROM movie
+        JOIN casting ON movie.id = casting.movieid
+        JOIN actor ON casting.actorid = actor.id
+        WHERE name = 'Art Garfunkel'
+    );
+    ```

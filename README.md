@@ -257,3 +257,97 @@ Here are the solution queries I wrote for every section of the tutorial.
     WHERE yr = 1984
     ORDER BY subject IN ('chemistry', 'physics'), subject, winner;
     ```
+## SELECT within SELECT
+1. 
+    ```sql
+    select NAME from world
+    WHERE population > (
+        SELECT population FROM world
+        WHERE name = 'Russia'
+    );
+    ```
+2. 
+    ```sql
+    SELECT name FROM world
+    WHERE continent = 'Europe'
+    AND gdp/population > (
+        SELECT gdp/population FROM world
+        WHERE name = 'United Kingdom'
+    );
+    ```
+3. 
+    ```sql
+    SELECT name, continent FROM world
+    WHERE continent IN (
+        SELECT continent FROM world
+        WHERE name IN ('Argentina', 'Australia')
+    );
+    ```
+4. 
+    ```sql
+    SELECT name, population FROM world
+    WHERE population > (
+        SELECT population FROM world
+        WHERE name = 'United Kingdom'
+    ) AND population < (
+        SELECT population FROM world
+        WHERE name = 'Germany'
+    );
+    ```
+5. 
+    ```sql
+    SELECT name,
+        CONCAT(
+            ROUND(population / (
+                SELECT population 
+                FROM world 
+                WHERE name = 'Germany'
+            ) * 100), '%'
+        ) AS percentage
+    FROM world
+    WHERE continent = 'Europe';
+    ```
+6. 
+    ```sql
+    SELECT name FROM world
+    WHERE gdp > ALL(
+        SELECT gdp FROM world
+        WHERE gdp IS NOT NULL
+        AND continent = 'Europe'
+        );
+    ```
+7. 
+    ```sql
+    SELECT continent, name, area FROM world i
+    WHERE area >= ALL(
+        SELECT area FROM world j
+        WHERE i.continent = j.continent
+    );
+    ```
+8. 
+    ```sql
+    SELECT continent, MIN(name) AS name
+    FROM world
+    GROUP BY continent
+    ORDER BY name;
+    ```
+9. 
+    ```sql
+    SELECT name, continent, population
+    FROM world
+    WHERE continent IN (
+        SELECT continent FROM world i
+        WHERE (
+            SELECT SUM(population) FROM world j
+            WHERE i.continent = j.continent
+            ) <= 25000000
+    );
+    ```
+10. 
+    ```sql
+    SELECT name, continent FROM world i
+    WHERE population  >= ALL(
+        SELECT 3 * MAX( population) FROM world j
+        WHERE i.continent = j.continent AND i.name != j.name
+    );
+    ```

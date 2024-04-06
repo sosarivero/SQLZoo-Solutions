@@ -613,7 +613,7 @@ Here are the solution queries I wrote for every section of the tutorial.
         WHERE name = 'Art Garfunkel'
     );
     ```
-## Section name
+## Using NULL
 1. 
     ```sql
     SELECT name FROM teacher
@@ -676,4 +676,114 @@ Here are the solution queries I wrote for every section of the tutorial.
             ELSE 'None'
         END
     FROM teacher;
+    ```
+## Self JOIN
+1. 
+    ```sql
+    SELECT COUNT(id) FROM stops;
+    ```
+2. 
+    ```sql
+    SELECT id FROM stops
+    WHERE name = 'Craiglockhart';
+    ```
+3. 
+    ```sql
+    SELECT id, name FROM stops
+    JOIN route ON id = route.stop
+    WHERE company = 'LRT' AND num = '4';
+    ```
+4. 
+    ```sql
+    SELECT company, num, COUNT(*)
+    FROM route WHERE stop=149 OR stop=53
+    GROUP BY company, num
+    HAVING COUNT(*) = 2;
+    ```
+5. 
+    ```sql
+    SELECT a.company, a.num, a.stop, b.stop
+    FROM route AS a
+    JOIN route AS b
+    ON (a.company=b.company AND a.num=b.num)
+    WHERE a.stop = 53 AND b.stop = 149;
+    ```
+6. 
+    ```sql
+    SELECT a.company, a.num, stopa.name, stopb.name
+    FROM route AS a
+    JOIN route AS b
+    ON (a.company = b.company AND a.num = b.num)
+    JOIN stops AS stopa
+    ON (a.stop = stopa.id)
+    JOIN stops AS stopb
+    ON (b.stop = stopb.id)
+    WHERE stopa.name='Craiglockhart'
+    AND stopb.name='London Road';
+    ```
+7. 
+    ```sql
+    SELECT DISTINCT a.company, a.num
+    FROM route AS a
+    JOIN route AS b
+    ON a.company = b.company AND a.num = b.num
+    JOIN stops AS stopa
+    ON a.stop = stopa.id
+    JOIN stops AS stopb
+    ON b.stop = stopb.id
+    WHERE stopa.id = 115
+    AND stopb.id = 137;
+    ```
+8. 
+    ```sql
+    SELECT DISTINCT a.company, a.num
+    FROM route AS a
+    JOIN route AS b
+    ON a.company = b.company AND a.num = b.num
+    JOIN stops AS stopa
+    ON a.stop = stopa.id
+    JOIN stops AS stopb
+    ON b.stop = stopb.id
+    WHERE stopa.name = 'Craiglockhart'
+    AND stopb.name = 'Tollcross';
+    ```
+9. 
+    ```sql
+    SELECT DISTINCT stopb.name, a.company, a.num
+    FROM route AS a
+    JOIN route AS b
+    ON a.company = b.company AND a.num = b.num
+    JOIN stops AS stopa
+    ON a.stop = stopa.id
+    JOIN stops AS stopb
+    ON b.stop = stopb.id
+    WHERE stopa.name = 'Craiglockhart';
+    ```
+10. 
+    ```sql
+    SELECT x.num, x.company, x.name, y.num, y.company
+    FROM (
+        SELECT DISTINCT stopa.name, a.company, a.num
+        FROM route AS a
+        JOIN route AS b
+        ON (a.company = b.company AND a.num = b.num)
+        JOIN stops AS stopa
+        ON a.stop = stopa.id
+        JOIN stops AS stopb
+        ON b.stop = stopb.id
+        WHERE stopb.name = 'Craiglockhart'
+    ) AS x
+    JOIN (
+        SELECT DISTINCT stopc.name, c.company, c.num
+        FROM route AS c
+        JOIN route AS d
+        ON (c.company = d.company AND c.num = d.num)
+        JOIN stops AS stopc
+        ON c.stop = stopc.id
+        JOIN stops AS stopd
+        ON d.stop = stopd.id
+        WHERE stopd.name = 'Lochend' 
+    ) AS y
+    ON x.name = y.name
+    ORDER BY x.num, name, y.num;
     ```
